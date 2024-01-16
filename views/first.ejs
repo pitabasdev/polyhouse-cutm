@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://kit.fontawesome.com/fc33bdc8f2.js" crossorigin="anonymous"></script>
+    <title>Polyhouse</title>
+    <style>
+      * {
+        font-family: "Poppins";
+      }
+      .card {
+        /* Add shadows to create the "card" effect */
+        box-shadow: 0 4px 8px 0 rgba(52, 70, 41, 0.712);
+        transition: 0.3s;
+      }
+
+      /* On mouse-over, add a deeper shadow */
+      .card:hover {
+        box-shadow: 0 20px 26px 5px rgba(21, 241, 5, 0.781);
+      }
+    </style>
+    <style>
+   
+      body {
+
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+  
+      .container-fluid {
+        flex: 1; 
+      }
+  
+      footer {
+        /* Sticky footer styles */
+        position: sticky;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.05);
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body ng-app="myapp" ng-controller="mycontro">
+    <!-- modal2 -->
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Message</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{message}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closefirst">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- modal2 -->
+
+    <!-- modal -->
+    <div
+      class="modal fade"
+      id="staticBackdrop"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">
+              Create Polyhouse
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Name of Polyhouse"
+                ng-model="name"
+              />
+            </div>
+            <div class="mb-3">
+              <textarea
+                name=""
+                id=""
+                class="form-control"
+                placeholder="Enter Polyhouse Descirption"
+                ng-model="desc"
+              ></textarea>
+            </div>
+            <!-- <div class="mb-3">
+              <label for="formFile" class="form-label"
+                >Any photo For Polyhouse
+                <span class="text-muted">(optional)</span></label
+              >
+              <input class="form-control" type="file" id="formFile" />
+            </div> -->
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-success"
+              data-bs-target="#staticBackdrop" data-bs-toggle="modal" data-bs-dismiss="modal"
+              ng-click="addpolyhs();"
+            >
+              Create 😁
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal -->
+
+    <!-- Edit modal 2  -->
+    <div
+      class="modal fade"
+      id="editbox"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">
+              Edit Polyhouse
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Name of Polyhouse"
+                ng-model="editname"
+                
+              />
+            </div>
+            <div class="mb-3">
+              <textarea
+                name=""
+                id=""
+                class="form-control"
+                placeholder="Enter Polyhouse Descirption"
+                ng-model="editdesc"
+              ></textarea>
+            </div>
+            <div class="mb-3 p-2">
+              <span class="text-muted"><small>Polyhouse Id:- {{editid}}</small></span>
+            </div>
+            
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-success"
+              
+              ng-click="updatepoly(editid);"
+            >
+              Edit <i class="fas fa-edit"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success p-2">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Polyhouse 🏡</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/logout">Logout <i class="fas fa-sign-out-alt"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9">
+          <div class="row mt-4">
+            <div class="col">
+              <button
+                class="btn btn-danger"
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
+              >
+                ➕ Add Polyhouse 🏡
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <h1 class="display-4 mt-2" ng-init="queryallpoly();">
+              All Polyhouse 🏡
+            </h1>
+            <!-- cardsection -->
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+              <div class="col" ng-repeat="card in cards">
+                <div class="card m-4 border border-success" style="width: 18rem" data-aos="flip-left" data-aos-delay="500">
+                  <img
+                    src="/img/93z_2206_w009_n001_145b_p14_145.jpg"
+                    class="card-img-top"
+                    alt="..."
+                  />
+                  <div class="card-body p-2 m-3">
+                    <h4 class="card-title">{{ card.name }}</h4>
+
+                    <p class="card-text">
+                      {{ card.desc }}
+                      <hr>
+                      <sub class="text-muted">Polyhouse Id : 
+                        <br>{{card._id}}</sub>
+                    </p>
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="buttons text-start">
+                      <a
+                        class="btn btn-outline-success"
+                        href="/home/{{ card._id }}"
+                        >▶ Open</a
+                      >
+                    </div>
+                      </div>
+                      <div class="col-6">
+                    <div class="options text-end align-bottom"><span data-bs-toggle="dropdown" aria-expanded="false" style="cursor:help" class="btn btn-outline-primary btn-sm">Options 
+                      <!-- 3 line menu icon -->
+                      <i class="fas fa-bars p-2"></i>
+                    </span>
+                    <ul class="dropdown-menu border-dark" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" href="/delete/{{ card._id }}">Delete <i class="far fa-trash-alt"></i></a></li>
+                      
+                      <li>
+                        <button
+                          type="button"
+                          class="dropdown-item"
+                          data-bs-toggle="modal"
+                          data-bs-target="#editbox"
+                          ng-click="editpolybox(card._id,card.name,card.desc);"
+                          >Edit <i class="fas fa-edit"></i></button>
+                      </li>
+                    </ul>
+                    </div>                        
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- cardsection -->
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <img
+            src="/img/59Z_2112.w009.n001.61A.p25.61.jpg"
+            class="img-fluid mt-4"
+            alt=""
+            srcset=""
+          />
+        </div>
+      </div>
+    </div>
+    <footer class="bg-body-tertiary text-center mt-4">
+			
+			<div class="container p-4 pb-0">
+				<section class="mb-4">
+					<a
+						data-mdb-ripple-init
+						class="btn text-white btn-floating m-1"
+						style="background-color: #3b5998"
+						href="/aboutus"
+						role="button"
+						><i class="fa-solid fa-address-card"></i></a>
+					<a
+						data-mdb-ripple-init
+						class="btn text-white btn-floating m-1"
+						style="background-color: #ac2bac"
+						href="#!"
+						role="button"
+						><i class="fab fa-instagram"></i
+					></a>
+					<a
+						data-mdb-ripple-init
+						class="btn text-white btn-floating m-1"
+						style="background-color: #0082ca"
+						href="https://www.linkedin.com/in/pitabas-pradhan-606aa3201/"
+						role="button"
+						><i class="fab fa-linkedin-in"></i
+					></a>
+					<a
+						data-mdb-ripple-init
+						class="btn text-white btn-floating m-1"
+						style="background-color: #333333"
+						href="https://github.com/pitabasdev"
+						role="button"
+						><i class="fab fa-github"></i
+					></a>
+				</section>
+			</div>
+			<div
+				class="text-center p-3 bg-success text-white"
+				style="background-color: rgba(0, 0, 0, 0.05)"
+			>
+        Copyright © 2024 All rights reserved | This made with  by 
+				<a class="text-body" href="https://portfolio-pitabas1977.vercel.app/">PitabasWebDev.com</a>
+			</div>
+		</footer>
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/createpoly.js"></script>
+    <script>
+      AOS.init();
+      var myModal = new bootstrap.Modal(document.getElementById("myModal"));
+      var editboxmodal = new bootstrap.Modal(document.getElementById("editbox"));
+
+      var firstModal = new bootstrap.Modal(document.getElementById("staticBackdrop"));
+
+    </script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
